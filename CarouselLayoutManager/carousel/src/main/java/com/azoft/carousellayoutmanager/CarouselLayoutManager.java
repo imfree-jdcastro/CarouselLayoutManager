@@ -61,6 +61,7 @@ public class CarouselLayoutManager extends RecyclerView.LayoutManager implements
 
     private final List<OnCenterItemSelectionListener> mOnCenterItemSelectionListeners = new ArrayList<>();
     private int mCenterItemPosition = INVALID_POSITION;
+    private int mCenterItemPositionMirror = INVALID_POSITION;
     private int mItemsCount;
 
     @Nullable
@@ -398,8 +399,8 @@ public class CarouselLayoutManager extends RecyclerView.LayoutManager implements
         final float absCurrentScrollPosition = makeScrollPositionInRange0ToCount(currentScrollPosition, state.getItemCount());
         final int centerItem = Math.round(absCurrentScrollPosition);
 
-        if (mCenterItemPosition != centerItem) {
-            mCenterItemPosition = centerItem;
+        if (mCenterItemPositionMirror != centerItem) {
+            mCenterItemPositionMirror = centerItem;
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
@@ -407,6 +408,15 @@ public class CarouselLayoutManager extends RecyclerView.LayoutManager implements
                 }
             });
         }
+//        if (mCenterItemPosition != centerItem) {
+//            mCenterItemPosition = centerItem;
+//            new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    selectItemCenterPosition(centerItem);
+//                }
+//            });
+//        }
     }
 
     private void selectItemCenterPosition(final int centerItem) {
